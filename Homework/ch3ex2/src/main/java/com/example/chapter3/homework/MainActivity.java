@@ -2,6 +2,7 @@ package com.example.chapter3.homework;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -135,14 +136,22 @@ public class MainActivity extends AppCompatActivity {
         animator1.setDuration(Integer.parseInt(durationSelector.getText().toString()));
         animator1.setRepeatCount(ObjectAnimator.INFINITE);
         animator1.setRepeatMode(ObjectAnimator.REVERSE);
+        PropertyValuesHolder px=PropertyValuesHolder.ofFloat(View.SCALE_X,1,2);
+        PropertyValuesHolder py=PropertyValuesHolder.ofFloat(View.SCALE_Y,1,2);
 
+        ObjectAnimator animator2=ObjectAnimator.ofPropertyValuesHolder(target,px,py);
+        animator2.setRepeatCount(ObjectAnimator.INFINITE);
+        animator2.setRepeatMode(ObjectAnimator.REVERSE);
         // TODO 1：在这里实现另一个 ObjectAnimator，对 target 控件的大小进行缩放，从 1 到 2 循环
-
+        ObjectAnimator animator3=ObjectAnimator.ofFloat(target,"alpha",1,0.5f);
         // TODO 2：在这里实现另一个 ObjectAnimator，对 target 控件的透明度进行修改，从 1 到 0.5f 循环
-
+        animator3.setRepeatCount(ObjectAnimator.INFINITE);
+        animator3.setRepeatMode(ObjectAnimator.REVERSE);
         // TODO 3: 将上面创建的其他 ObjectAnimator 都添加到 AnimatorSet 中
         animatorSet = new AnimatorSet();
         animatorSet.playTogether(animator1);
+        animatorSet.playTogether(animator2);
+        animatorSet.playTogether(animator3);
         animatorSet.start();
     }
 }
